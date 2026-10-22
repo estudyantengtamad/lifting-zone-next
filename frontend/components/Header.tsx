@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ShoppingCart, Search, ArrowRight, X, Menu, Heart, Volume2, VolumeX, MapPin } from 'lucide-react'
+import { ShoppingCart, Search, ArrowRight, X, Menu, Volume2, VolumeX, MapPin } from 'lucide-react'
 import { products, peso } from '../lib/data'
 import { useStore, subtotal } from '../lib/store'
 import { useAuthStore } from '../lib/authStore'
@@ -22,10 +22,7 @@ export default function Header() {
   const {
     products,
     cart,
-    wish,
     setOpen,
-    wishOpen,
-    setWishOpen,
     setCheckoutOpen,
     setQuickViewProduct,
     soundEnabled,
@@ -184,24 +181,6 @@ export default function Header() {
 
         {/* Right Action Icons Group */}
         <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-          {/* Wishlist Trigger (Desktop) */}
-          <button
-            onClick={() => {
-              if (soundEnabled) sound.playClick()
-              setWishOpen(true)
-            }}
-            className="hidden sm:flex relative items-center justify-center h-8 w-8 sm:h-9 sm:w-9 rounded-full border border-line bg-card text-[var(--color-text-muted)] hover:text-red-500 hover:border-brand-500/50 transition"
-            title="Wishlist"
-            aria-label="Wishlist"
-          >
-            <Heart size={15} className={wish.length > 0 ? 'text-red-500 fill-red-500' : ''} />
-            {wish.length > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-black text-white">
-                {wish.length}
-              </span>
-            )}
-          </button>
-
           {/* Dark / Light / System Theme Toggle */}
           <div className="shrink-0">
             <ThemeToggle />
@@ -294,7 +273,7 @@ export default function Header() {
             })}
           </div>
 
-          {/* Utility Row: Sound toggle, Wishlist, Checkout */}
+          {/* Utility Row: Sound toggle, Checkout */}
           <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-line">
             <div className="flex items-center gap-2">
               {/* Sound Toggle */}
@@ -314,18 +293,6 @@ export default function Header() {
                     <span className="text-[11px]">Muted</span>
                   </>
                 )}
-              </button>
-
-              {/* Wishlist Link */}
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false)
-                  setWishOpen(true)
-                }}
-                className="flex items-center gap-1.5 rounded-full border border-line bg-elev px-3 py-1.5 text-xs text-[var(--color-text-muted)] hover:text-red-500 hover:border-brand-500/40 transition"
-              >
-                <Heart size={13} className={wish.length > 0 ? 'fill-red-500 text-red-500' : ''} />
-                <span className="text-[11px] font-semibold">Saved ({wish.length})</span>
               </button>
             </div>
 

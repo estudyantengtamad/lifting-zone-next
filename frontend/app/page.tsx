@@ -15,7 +15,6 @@ import StackBuilder from '../components/StackBuilder'
 import BarbellCalculator from '../components/BarbellCalculator'
 import ScratchDiscount from '../components/ScratchDiscount'
 import QuickViewModal from '../components/QuickViewModal'
-import WishlistDrawer from '../components/WishlistDrawer'
 import CheckoutModal from '../components/CheckoutModal'
 import Cart from '../components/Cart'
 import AdminGate from '../components/AdminGate'
@@ -147,7 +146,6 @@ export default function Page() {
 
       {/* Interactive Modals & Drawers */}
       <QuickViewModal />
-      <WishlistDrawer />
       <Cart />
       <CheckoutModal />
       <MobileDock />

@@ -2,13 +2,13 @@
 
 import { useMemo, useState } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { Eye, Heart, ShoppingBag, Sparkles, Filter, X } from 'lucide-react'
+import { Eye, ShoppingBag, Sparkles, Filter, X } from 'lucide-react'
 import { peso, Product } from '../lib/data'
 import { useStore } from '../lib/store'
 import { sound } from '../lib/audio'
 
 function Card({ p }: { p: Product }) {
-  const { add, wishT, wish, setQuickViewProduct, soundEnabled } = useStore()
+  const { add, setQuickViewProduct, soundEnabled } = useStore()
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const sx = useSpring(x)
@@ -16,17 +16,10 @@ function Card({ p }: { p: Product }) {
   const rY = useTransform(sx, [-0.5, 0.5], [-9, 9])
   const rX = useTransform(sy, [-0.5, 0.5], [9, -9])
   const off = p.o > p.p ? Math.round((1 - p.p / p.o) * 100) : 0
-  const isWished = wish.includes(p.id)
 
   const handleAddToCart = () => {
     if (soundEnabled) sound.playSuccess()
     add(p.id)
-  }
-
-  const handleToggleWish = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    if (soundEnabled) sound.playClick()
-    wishT(p.id)
   }
 
   return (
@@ -92,14 +85,6 @@ function Card({ p }: { p: Product }) {
             title="Inspect Specs & Authenticity"
           >
             <Eye size={15} />
-          </button>
-          <button
-            aria-label="Wishlist"
-            onClick={handleToggleWish}
-            className="grid h-8 w-8 place-items-center rounded-full border border-line bg-card/90 backdrop-blur-md text-[var(--color-text)] hover:border-brand-500 shadow-md transition"
-            title="Save to Wishlist"
-          >
-            <Heart size={15} className={isWished ? 'fill-red-500 text-red-500' : ''} />
           </button>
         </div>
       </div>

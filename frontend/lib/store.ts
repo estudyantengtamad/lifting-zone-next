@@ -5,9 +5,7 @@ import { sound } from './audio'
 type StoreState = {
   products: Product[]
   cart: Record<number, number>
-  wish: number[]
   open: boolean
-  wishOpen: boolean
   adminOpen: boolean
   toast: string
   soundEnabled: boolean
@@ -26,9 +24,7 @@ type StoreState = {
   add: (id: number, qty?: number) => void
   addMultiple: (ids: number[]) => void
   qty: (id: number, delta: number) => void
-  wishT: (id: number) => void
   setOpen: (open: boolean) => void
-  setWishOpen: (wishOpen: boolean) => void
   setQuickViewProduct: (product: Product | null) => void
   setCheckoutOpen: (open: boolean) => void
   toggleSound: () => void
@@ -41,9 +37,7 @@ type StoreState = {
 export const useStore = create<StoreState>((set, get) => ({
   products: initialProducts,
   cart: {},
-  wish: [0, 4],
   open: false,
-  wishOpen: false,
   adminOpen: false,
   toast: '',
   soundEnabled: true,
@@ -133,27 +127,9 @@ export const useStore = create<StoreState>((set, get) => ({
     })
   },
 
-  wishT: (id) => {
-    const s = get()
-    if (s.soundEnabled) sound.playClick()
-    set(state => {
-      const isWished = state.wish.includes(id)
-      const nextWish = isWished ? state.wish.filter(w => w !== id) : [...state.wish, id]
-      return {
-        wish: nextWish,
-        toast: isWished ? 'Removed from wishlist' : 'Saved to wishlist ❤️'
-      }
-    })
-  },
-
   setOpen: (open) => {
     if (get().soundEnabled) sound.playClick()
     set({ open })
-  },
-
-  setWishOpen: (wishOpen) => {
-    if (get().soundEnabled) sound.playClick()
-    set({ wishOpen })
   },
 
   setQuickViewProduct: (quickViewProduct) => {

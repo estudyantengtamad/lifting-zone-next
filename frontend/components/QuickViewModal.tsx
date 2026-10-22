@@ -2,13 +2,13 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ShieldCheck, Star, Heart, Check, Minus, Plus, Loader2, Sparkles } from 'lucide-react'
+import { X, ShieldCheck, Star, Check, Minus, Plus, Loader2, Sparkles } from 'lucide-react'
 import { useStore } from '../lib/store'
 import { sound } from '../lib/audio'
 import { peso, Product } from '../lib/data'
 
 export default function QuickViewModal() {
-  const { quickViewProduct, setQuickViewProduct, add, wishT, wish, soundEnabled } = useStore()
+  const { quickViewProduct, setQuickViewProduct, add, soundEnabled } = useStore()
   const [selectedFlavor, setSelectedFlavor] = useState<string>('')
   const [qty, setQty] = useState<number>(1)
   const [verifying, setVerifying] = useState(false)
@@ -18,7 +18,6 @@ export default function QuickViewModal() {
 
   if (!quickViewProduct) return null
   const p: Product = quickViewProduct
-  const isWished = wish.includes(p.id)
   const activeFlavor = selectedFlavor || p.flavors[0] || 'Standard'
 
   const handleVerify = async () => {
@@ -162,13 +161,6 @@ export default function QuickViewModal() {
                   <span className="eyebrow">{p.b}</span>
                   <h2 className="h text-2xl md:text-3xl mt-1 text-[var(--color-text)]">{p.t}</h2>
                 </div>
-                <button
-                  onClick={() => wishT(p.id)}
-                  className="rounded-full border border-line bg-elev p-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition"
-                  title="Save to Wishlist"
-                >
-                  <Heart size={18} className={isWished ? 'fill-red-500 text-red-500' : ''} />
-                </button>
               </div>
 
               {/* Rating & Stock */}
