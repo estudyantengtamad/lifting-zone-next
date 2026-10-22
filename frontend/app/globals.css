@@ -1,0 +1,243 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Default (Dark Mode tokens) */
+  --color-bg: #050806;
+  --color-card: #0b110d;
+  --color-elev: #121b15;
+  --color-line: #1a2a20;
+  --color-text: #e8f0ea;
+  --color-text-muted: rgba(232, 240, 234, 0.65);
+  --color-text-subtle: rgba(232, 240, 234, 0.4);
+  --color-brand-400: #22e56c;
+  --color-brand-500: #16c45a;
+  --color-brand-700: #0a7d36;
+  --color-brand-accent: #16c45a;
+  --color-btn-text: #000000;
+  --color-border: #1a3822;
+  --color-shadow-neon: rgba(22, 196, 90, 0.4);
+  --color-dot: rgba(22, 196, 90, 0.2);
+  --color-dot-active: rgba(34, 229, 108, 0.85);
+  --color-chalk-bg: #111a13;
+  --color-chalk-text: #22e56c;
+}
+
+[data-theme='light'] {
+  /* Architectural Gray, Green & White Palette */
+  --color-bg: #e2e8e4;
+  --color-card: #ffffff;
+  --color-elev: #edf2ee;
+  --color-line: #c2d1c6;
+  --color-border: #c2d1c6;
+  --color-text: #0d1711;
+  --color-text-muted: #2d4033;
+  --color-text-subtle: #506657;
+  /* Rich high-contrast forest & emerald green brand accents */
+  --color-brand-400: #0f9a44;
+  --color-brand-500: #0a7d36;
+  --color-brand-700: #065223;
+  --color-brand-accent: #0a7d36;
+  --color-btn-text: #ffffff;
+  --color-shadow-neon: rgba(10, 125, 54, 0.22);
+  --color-dot: rgba(10, 125, 54, 0.15);
+  --color-dot-active: rgba(10, 125, 54, 0.75);
+  --color-chalk-bg: #dbe4dc;
+  --color-chalk-text: #0a7d36;
+  --color-chalk-base: #adbdb1;
+  --color-chalk-mid: #c4d4c8;
+  --color-chalk-end: #9eb1a3;
+}
+
+html {
+  scroll-behavior: smooth;
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Luxury Editorial Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #183321;
+  border-radius: 9999px;
+  border: 2px solid var(--color-bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-500);
+  box-shadow: 0 0 10px var(--color-shadow-neon);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #183321 var(--color-bg);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: clip;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.neon {
+  color: var(--color-brand-accent);
+  text-shadow: 0 0 20px var(--color-shadow-neon);
+}
+
+.h {
+  @apply font-head font-extrabold uppercase tracking-tight;
+}
+
+.btn {
+  @apply inline-block rounded-xl bg-brand-500 px-5 py-2.5 font-bold transition hover:bg-brand-400 hover:shadow-neon disabled:opacity-40;
+  color: var(--color-btn-text);
+}
+
+.eyebrow {
+  @apply font-head text-xs font-bold uppercase tracking-[.15em] text-brand-500;
+}
+
+/* =========================================================================
+   SOLARE SIGNATURE SCROLL & UI INTERACTIVITY
+   ========================================================================= */
+
+/* 1. Double underline hover transition (.uline-double) */
+.uline-double {
+  display: inline-flex;
+  position: relative;
+  white-space: nowrap;
+}
+.uline-double:before,
+.uline-double:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background-color: currentColor;
+}
+.uline-double:before {
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
+  transition-delay: 0.2s;
+}
+.uline-double:after {
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
+  transition-delay: 0s;
+}
+.uline-double:hover:before {
+  transform: scaleX(0);
+  transform-origin: right;
+  transition-delay: 0s;
+}
+.uline-double:hover:after {
+  transform: scaleX(1);
+  transform-origin: left;
+  transition-delay: 0.15s;
+}
+
+/* 2. Solare Rolling Arrow Pill Button */
+.solare-pill-btn {
+  position: relative;
+  align-items: center;
+  border-radius: 9999px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.5s;
+}
+.solare-pill-btn:hover {
+  transform: translateY(-2px);
+}
+.solare-pill-btn .btn-arrow-1 {
+  transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.solare-pill-btn .btn-arrow-2 {
+  position: absolute;
+  transform: translateX(-150%);
+  transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.solare-pill-btn:hover .btn-arrow-1 {
+  transform: translateX(150%);
+}
+.solare-pill-btn:hover .btn-arrow-2 {
+  transform: translateX(0);
+}
+
+/* 3. Solare Neon Green Range Sliders */
+input[type=range].solare-slider {
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+  height: 20px;
+}
+input[type=range].solare-slider:focus {
+  outline: none;
+}
+input[type=range].solare-slider::-webkit-slider-runnable-track {
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.35;
+  width: 100%;
+}
+input[type=range].solare-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  border-radius: 999px;
+  background-color: var(--color-brand-500);
+  margin-top: -7px;
+  box-shadow: 0 0 12px var(--color-shadow-neon);
+  transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+input[type=range].solare-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.35);
+}
+
+/* 4. Solare Circular Mask / Arch Styling */
+.solare-arch {
+  border-top-left-radius: 9999px;
+  border-top-right-radius: 9999px;
+}
+
+/* 5. 3D Perspective and Clip-path mask */
+.perspective-stage {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.intro-arch-clip {
+  clip-path: inset(0 round 24rem 24rem 0 0);
+}
